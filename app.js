@@ -52,7 +52,7 @@ const store = MongoStore.create({
   touchAfter: 24 * 3600, // time period in seconds
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
   console.log("ERROR in MONGO SESSION STORE", err);
 });
 
@@ -69,9 +69,9 @@ const sessionOptions = {
 };
 
 //Root Route
-// app.get("/", (req, res) => {
-//   res.send("Hi I am root");
-// });
+app.get("/", (req, res) => {
+  res.send("Hi I am root");
+});
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -102,7 +102,7 @@ app.use((req, res, next) => {
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
-app.use("/", userRouter);
+// app.use("/", userRouter);
 
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found"));
