@@ -44,6 +44,11 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "public")));
 
+//Root Route
+app.get("/", (req, res) => {
+  res.send("Hi I am root");
+});
+
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
@@ -68,10 +73,7 @@ const sessionOptions = {
   },
 };
 
-//Root Route
-app.get("/", (req, res) => {
-  res.send("Hi I am root");
-});
+
 
 app.use(session(sessionOptions));
 app.use(flash());
